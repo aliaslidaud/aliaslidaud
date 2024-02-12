@@ -1,43 +1,25 @@
-﻿namespace _01.Train
+﻿using System.Diagnostics;
+
+namespace _11.Orders
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            List<int> vagons = Console.ReadLine()
-                .Split()
-                .Select(int.Parse)
-                .ToList();
-            int capacity = int.Parse(Console.ReadLine());
+            int ordersCount = int.Parse(Console.ReadLine());
+            double singleOrderPrice = 0;
+            double ordersTotal = 0;
 
-            string comand = Console.ReadLine();
-            while (comand != "end")
+            for (int i = 0; i < ordersCount; i++)
             {
-                string[] nextAction = comand.Split();
-                if (nextAction.Length == 1)
-                {
-                    int passengers = int.Parse(nextAction[0]);
-                    for (int i = 0; i < vagons.Count; i++)
-                    {
-                        if ((capacity - vagons[i]) < passengers)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            vagons[i] += passengers;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    int vagonsAdding = int.Parse(nextAction[1]);
-                    vagons.Add(vagonsAdding);
-                }
-                comand = Console.ReadLine();
+                double pricePerCapsule = double.Parse(Console.ReadLine());
+                int daysInMonth = int.Parse(Console.ReadLine());
+                int capsulesCount = int.Parse(Console.ReadLine());
+                singleOrderPrice = daysInMonth * pricePerCapsule * capsulesCount;
+                ordersTotal += singleOrderPrice;
+                Console.WriteLine($"The price for the coffee is: ${singleOrderPrice:f2}");
             }
-            Console.WriteLine(string.Join(" ", vagons));
+            Console.WriteLine($"Total: ${ordersTotal:f2}");
         }
     }
 }
